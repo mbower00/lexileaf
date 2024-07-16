@@ -1,0 +1,40 @@
+/* using code from from https://fonts.google.com/selection/embed */
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+CU&family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+body {
+  margin: 0;
+
+  /* using code from from https://fonts.google.com/selection/embed */
+  font-family: "Poppins", sans-serif;
+
+  /* COLORS */
+  /* green */
+  --green0: #c3f1bb;
+  --green1: #97e788;
+  --green2: #6adc56;
+  --green3: #42cb2a;
+  --green4: #31981f;
+  --green5: #216615;
+  /* gray */
+  --white: #FFFFFF;
+  --gray0: #E0E0E0;
+  --gray1: #ADADAD;
+  --gray2: #525252;
+  --gray3: #1F1F1F;
+  --gray4: #141414;
+  --black: #000000;
+  /* red */
+  --red: #CC2936;
+
+  --text: var(--gray4);
+
+  color: var(--text);
+}
+
+body h1,
+h2,
+h3,
+.cursive-font {
+  /* using code from from https://fonts.google.com/selection/embed */
+  font-family: "Playwrite CU", cursive;
+}
