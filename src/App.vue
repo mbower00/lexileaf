@@ -3,10 +3,11 @@
     <div class="header-title-container">
       <h1 class="header-title">lexileaf</h1>
       <div class="header-hamburger-container">
-        <HamburgerButton />
+        <HamburgerButton @hamburgerToggled="setIsNavOpen" />
       </div>
     </div>
-    <nav class="header-nav">
+    <!-- using code from https://vuejs.org/guide/essentials/class-and-style.html#class-and-style-bindings -->
+    <nav :class="{ 'header-nav': true, collapseNav: !isNavOpen }">
       <router-link class="header-link" to="/">Explore</router-link>
       <router-link class="header-link" to="/practice">Practice</router-link>
     </nav>
@@ -20,7 +21,17 @@ import HamburgerButton from "./components/HamburgerButton.vue"
 export default {
   components: {
     HamburgerButton
-  }
+  },
+  data() {
+    return {
+      isNavOpen: false
+    }
+  },
+  methods: {
+    setIsNavOpen(isX) {
+      this.isNavOpen = isX
+    }
+  },
 }
 </script>
 
@@ -38,6 +49,11 @@ export default {
   flex-direction: column;
   text-align: center;
   padding: 0 15px 15px 15px;
+}
+
+/* using code from https://www.w3schools.com/cssref/css_selectors.php */
+.header-nav.collapseNav {
+  display: none;
 }
 
 .header-hamburger-container {
@@ -69,6 +85,10 @@ export default {
 /* using code from https://www.w3schools.com/css/css3_mediaqueries.asp */
 @media (min-width: 426px) {
   .header-header {
+    display: flex;
+  }
+
+  .header-nav.collapseNav {
     display: flex;
   }
 

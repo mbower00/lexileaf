@@ -1,10 +1,31 @@
 <template>
-  <div>
-    <h1>Explore</h1>
-    <p>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae delectus rerum necessitatibus ipsam veniam?
-      Officiis, quibusdam nam iusto consectetur similique aspernatur consequatur odio, nihil aut blanditiis vitae
-      consequuntur iste adipisci!
-    </p>
+  <div class="view-container">
+    <div>
+
+      hello
+    </div>
   </div>
 </template>
+
+<script>
+import SearchBar from "../components/SearchBar.vue"
+
+export default {
+  components: { SearchBar }
+}
+</script>
+
+<style scoped>
+div {
+  border: 1px solid black;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+/* using code from https://www.w3schools.com/css/css3_mediaqueries.asp */
+@media (min-width: 426px) {
+  .view-container {
+    max-width: 700px;
+  }
+}
+</style>

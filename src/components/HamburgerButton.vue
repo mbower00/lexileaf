@@ -10,6 +10,7 @@
 
 <script>
 export default {
+  emits: ["hamburgerToggled"],
   data() {
     return {
       isX: false
@@ -18,7 +19,7 @@ export default {
   methods: {
     toggleHamburger() {
       this.isX = !this.isX
-      console.log(this.isX)
+      this.$emit("hamburgerToggled", this.isX)
     }
   },
 }
