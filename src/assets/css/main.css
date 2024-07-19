@@ -31,10 +31,20 @@ body {
   color: var(--text);
 }
 
-body h1,
-h2,
-h3,
-.cursive-font {
+body .cursive-font {
   /* using code from from https://fonts.google.com/selection/embed */
   font-family: "Playwrite CU", cursive;
+}
+
+/* using code from: 
+- https://developer.mozilla.org/en-US/docs/Web/CSS/animation
+- https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/rotate
+*/
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

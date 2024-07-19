@@ -1,7 +1,7 @@
 <template>
   <header class="header-header">
     <div class="header-title-container">
-      <h1 class="header-title">lexileaf</h1>
+      <h1 class="header-title cursive-font">lexileaf</h1>
       <div class="header-hamburger-container">
         <HamburgerButton @hamburgerToggled="setIsNavOpen" />
       </div>
