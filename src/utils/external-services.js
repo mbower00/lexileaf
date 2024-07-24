@@ -1,4 +1,4 @@
-const API_KEY = 'TODO: CONNECT ENV VARIABLE'
+const API_KEY = '806fde0acamshdd358ff2292743fp1e0977jsn6a1793dc55a4'
 
 
 export async function getWord(word) {

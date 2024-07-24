@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-if="resultData.partOfSpeech" class="part-of-speech">
-      {{ resultData.partOfSpeech }}
-    </div>
+    <!-- using code from https://www.w3schools.com/vue/vue_v-if.php -->
+
+    <PartOfSpeech v-if="resultData.partOfSpeech" :partOfSpeech="resultData.partOfSpeech" />
     <div class="spacer" v-if="resultData.definition && resultData.partOfSpeech"></div>
     <div v-if="resultData.definition" class="definition">
       {{ resultData.definition }}
@@ -11,7 +11,12 @@
 </template>
 
 <script>
+import PartOfSpeech from './PartOfSpeech.vue';
+
 export default {
+  components: {
+    PartOfSpeech
+  },
   props: {
     resultData: {
       required: true,
@@ -25,16 +30,6 @@ export default {
 </script>
 
 <style scoped>
-.part-of-speech {
-  /*using code from https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform*/
-  text-transform: uppercase;
-  width: fit-content;
-  line-height: 1;
-  color: var(--green2);
-  font-size: small;
-  font-weight: bold;
-}
-
 .spacer {
   height: 3px
 }

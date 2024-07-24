@@ -19,15 +19,15 @@ export default {
 
 <style scoped>
 .syllable-container {
-  display: flex;
-  gap: 3px;
   justify-content: center;
+  max-width: fit-content;
+  margin: 0 auto;
+  overflow-wrap: break-word;
 }
 
 .single-syllable {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 3px;
 }
 
 span {
@@ -36,6 +36,8 @@ span {
 
 .dot {
   background-color: var(--gray1);
+  margin-right: 3px;
+  margin-left: 3px;
 }
 
 .dot {
@@ -47,7 +49,7 @@ span {
 /* using code from https://www.w3schools.com/css/css3_mediaqueries.asp */
 @media (min-width: 426px) {
   .syllable-container {
-    justify-content: left;
+    margin: 0;
   }
 }
 </style>

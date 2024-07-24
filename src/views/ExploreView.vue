@@ -1,8 +1,20 @@
 <template>
   <div class="view-container">
-    <div>
+    <div class="search-container">
       <SearchBar @searchSubmit="submitSearch" />
+
+      <!-- using code from https://vuejs.org/guide/essentials/event-handling.html -->
+      <!-- using copied code from https://fonts.google.com/icons?selected=Material+Symbols+Outlined:ifl:FILL@0;wght@400;GRAD@0;opsz@24&icon.size=24&icon.color=%235f6368&icon.query=die -->
+      <span @click="() => { getDefinition() }" class="random-button material-symbols-outlined">
+        ifl
+      </span>
+
     </div>
+    <!-- <div>
+      <StyledButton @click="() => { getQueryParams() }">
+        Random Word
+      </StyledButton>
+    </div> -->
     <WordDefinitionFull class="word-def" :wordData="wordData" />
   </div>
 </template>
@@ -11,9 +23,11 @@
 import WordDefinitionFull from "../components/WordDefinitionFull.vue";
 import SearchBar from "../components/SearchBar.vue"
 import { getWord, getRandomWord } from "../utils/external-services.js"
+import { getQueryParams } from "../utils/utils.js"
+import StyledButton from "../components/StyledButton.vue";
 
 export default {
-  components: { SearchBar, WordDefinitionFull },
+  components: { SearchBar, WordDefinitionFull, StyledButton },
   data() {
     return {
       wordData: undefined
@@ -28,7 +42,7 @@ export default {
     async getDefinition(word = false) {
       this.wordData = undefined
 
-      if (word === false) {
+      if (!word) {
         this.wordData = await getRandomWord()
       } else {
         this.wordData = await getWord(word)
@@ -38,7 +52,8 @@ export default {
   },
   // using code from https://vuejs.org/guide/essentials/lifecycle.html#lifecycle-hooks
   mounted() {
-    this.getDefinition()
+    let qParams = getQueryParams()
+    this.getDefinition(qParams.search)
   },
 }
 </script>
@@ -51,6 +66,21 @@ export default {
 
 .word-def {
   margin-top: 15px;
+}
+
+.search-container {
+  display: flex;
+  gap: 15px;
+  max-width: 400px;
+  margin: 0 auto;
+  align-items: center;
+  z-index: 2;
+}
+
+.random-button {
+  color: var(--gray1);
+  cursor: pointer;
+
 }
 
 /* using code from https://www.w3schools.com/css/css3_mediaqueries.asp */
