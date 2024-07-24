@@ -1,3 +1,8 @@
+<!-- 
+  See note about stackoverflow in SynonymDisplay.vue
+ -->
+<!-- using code from https://vuejs.org/guide/essentials/lifecycle.html#lifecycle-hooks -->
+
 <template>
   <div class="view-container">
     <div class="search-container">
@@ -15,7 +20,8 @@
         Random Word
       </StyledButton>
     </div> -->
-    <WordDefinitionFull class="word-def" :wordData="wordData" />
+    <WordDefinitionFull @reloadViaLink="getDefinition" @makeTraversal="traverseToWord" class="word-def"
+      :wordData="wordData" />
   </div>
 </template>
 
@@ -47,13 +53,20 @@ export default {
       } else {
         this.wordData = await getWord(word)
       }
-    }
+    },
 
+    async traverseToWord(word) {
+      this.wordData = undefined
+      this.wordData = await getWord(word, true)
+    },
+
+    querySearch() {
+      let qParams = getQueryParams()
+      this.getDefinition(qParams.search)
+    }
   },
-  // using code from https://vuejs.org/guide/essentials/lifecycle.html#lifecycle-hooks
   mounted() {
-    let qParams = getQueryParams()
-    this.getDefinition(qParams.search)
+    this.querySearch()
   },
 }
 </script>
@@ -64,10 +77,6 @@ export default {
   padding: 15px;
 }
 
-.word-def {
-  margin-top: 15px;
-}
-
 .search-container {
   display: flex;
   gap: 15px;
@@ -76,6 +85,7 @@ export default {
   align-items: center;
   z-index: 2;
 }
+
 
 .random-button {
   color: var(--gray1);

@@ -15,7 +15,7 @@
   <div class="search-bar-container">
 
     <div class="search-bar-container-abs" tabindex="0" @mouseleave="() => { this.isSearchFocused = false }"
-      @mouseenter="() => { this.isSearchFocused = true }">
+      @mousemove="() => { this.isSearchFocused = true }">
 
       <div class="bar-mag-container">
         <!-- using code from https://test-utils.vuejs.org/guide/essentials/forms -->

@@ -92,9 +92,9 @@ export default {
     display: flex;
   }
 
+  /* using code from https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Aligning_items_in_a_flex_container */
   .header-nav {
     flex-direction: row;
-    /* using code from https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Aligning_items_in_a_flex_container */
     margin-left: auto;
     padding: 15px;
   }

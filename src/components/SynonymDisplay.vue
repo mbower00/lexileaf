@@ -1,6 +1,11 @@
 <template>
   <span class="synonym-dot-container">
-    <TextLink route="/">
+    <!-- using code from https://vuejs.org/guide/essentials/event-handling.html -->
+    <!-- Here, https://stackoverflow.com/questions/51717785/vue-routers-router-link-with-actual-refresh
+      they said that having it reload the page is "...killing the very purpose of SPA." So, I am having it
+      emit. See WordDefinitionFull and ExploreView for what it emits to.
+    -->
+    <TextLink @click="() => { emitLinkClicked(synonym) }" :route="`/?search=${synonym}`">
       <span class="synonym">{{ synonym }}</span>
     </TextLink>
     <!-- using code from https://www.w3schools.com/vue/vue_v-if.php -->
@@ -13,9 +18,15 @@ import TextLink from './TextLink.vue';
 
 export default {
   props: ["synonym", "omitDot"],
+  emits: ["linkClicked"],
   components: {
     TextLink
-  }
+  },
+  methods: {
+    emitLinkClicked(word) {
+      this.$emit('linkClicked', word)
+    }
+  },
 }
 </script>
 

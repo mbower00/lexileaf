@@ -1,75 +1,85 @@
+<!-- 
+  See note about stackoverflow in SynonymDisplay.vue
+ -->
+
 <template>
-  <div class="word-definition-full">
-    <!-- using code from: 
+
+  <div class="word-trav-container">
+    <TraversalMenu @traverseSelected="sendTraversal" :wordData="wordData" class="traversal-menu" />
+    <div class="word-definition-full">
+      <!-- using code from: 
     - https://www.w3schools.com/vue/vue_v-if.php
     - https://vuejs.org/guide/essentials/list
     -->
 
-    <div v-if="typeof wordData === 'string'" class="result-container not-found-container">
-      <span class="add-word-button nf">
-        <AddOrTrashWordButton @trashToggled="addOrTrash" :staticAdd="true" />
-      </span>
+      <div v-if="typeof wordData === 'string'" class="result-container not-found-container">
+        <span class="add-word-button nf">
+          <AddOrTrashWordButton @trashToggled="addOrTrash" :staticAdd="true" />
+        </span>
 
-      <h1>oh no!</h1>
-      <p class="not-found-body-text">The search entry: "{{ wordData }}" was not found. Please try again by searching
-        with a different entry.</p>
-    </div>
-
-
-    <div v-else-if="wordData" class="result-container word-definition-container">
-      <!-- ADD OR TRASH BUTTON -->
-      <span class="add-word-button">
-        <AddOrTrashWordButton @trashToggled="addOrTrash" :startOnTrash="wordAlreadySaved" />
-      </span>
-
-      <!-- WORD NAME -->
-      <h1>
-        {{ wordData.word }}
-      </h1>
-
-      <!-- SYLLABLES -->
-      <div v-if="wordData.syllables" class="spacer-small"></div>
-      <SyllableDisplay v-if="wordData.syllables" :syllables="wordData.syllables.list" />
-
-      <!-- PRONUNCIATION -->
-      <div v-if="!wordData.syllables && wordData.pronunciation" class="spacer-small"></div>
-      <div v-if="wordData.pronunciation" class="pronunciation">
-        {{ wordData.pronunciation.all }}
+        <h1>oh no!</h1>
+        <p class="not-found-body-text">The search entry: "{{ wordData }}" was not found. Please try again by searching
+          with a different entry.</p>
       </div>
 
-      <!-- DEFINTIONS -->
-      <div v-if="wordData.results" class="spacer"></div>
-      <div v-if="wordData.results" v-for="(result, i) in wordData.results">
-        <WordResult :resultData="result" />
-        <div v-if="i !== wordData.results.length - 1" class="spacer"></div>
-      </div>
 
-      <!-- SYNONYMS -->
-      <div v-if="synonyms">
-        <div class="spacer"></div>
-        <h3>Synonyms</h3>
-        <div>
-          <span v-for="(synonym, i) in synonyms">
-            <SynonymDisplay :synonym="synonym" :omitDot="i !== synonyms.length - 1" />
-          </span>
+      <div v-else-if="wordData" class="result-container word-definition-container">
+        <!-- ADD OR TRASH BUTTON -->
+        <span class="add-word-button">
+          <AddOrTrashWordButton @trashToggled="addOrTrash" :startOnTrash="wordAlreadySaved" />
+        </span>
+
+        <!-- WORD NAME -->
+        <h1>
+          {{ wordData.word }}
+        </h1>
+
+        <!-- SYLLABLES -->
+        <div v-if="wordData.syllables" class="spacer-small"></div>
+        <SyllableDisplay v-if="wordData.syllables" :syllables="wordData.syllables.list" />
+
+        <!-- PRONUNCIATION -->
+        <div v-if="!wordData.syllables && wordData.pronunciation" class="spacer-small"></div>
+        <div v-if="wordData.pronunciation" class="pronunciation">
+          {{ wordData.pronunciation.all }}
         </div>
-      </div>
 
-      <!-- ANTONYMS -->
-      <div v-if="antonyms">
-        <div class="spacer"></div>
-        <h3>Antonyms</h3>
-        <div>
-          <span v-for="(antonym, i) in antonyms">
-            <SynonymDisplay :synonym="antonym" :omitDot="i !== antonyms.length - 1" />
-          </span>
+        <!-- DEFINTIONS -->
+        <div v-if="wordData.results" class="spacer"></div>
+        <div v-if="wordData.results" v-for="(result, i) in wordData.results">
+          <WordResult :resultData="result" />
+          <div v-if="i !== wordData.results.length - 1" class="spacer"></div>
         </div>
+
+        <!-- SYNONYMS -->
+        <div v-if="synonyms">
+          <div class="spacer"></div>
+          <h3>Synonyms</h3>
+          <div>
+            <span v-for="(synonym, i) in synonyms">
+              <SynonymDisplay @linkClicked="() => { sendReloadViaLink(synonym) }" :synonym="synonym"
+                :omitDot="i !== synonyms.length - 1" />
+            </span>
+          </div>
+        </div>
+
+        <!-- ANTONYMS -->
+        <div v-if="antonyms">
+          <div class="spacer"></div>
+          <h3>Antonyms</h3>
+          <div>
+            <span v-for="(antonym, i) in antonyms">
+              <SynonymDisplay @linkClicked="() => { sendReloadViaLink(antonym) }" :synonym="antonym"
+                :omitDot="i !== antonyms.length - 1" />
+            </span>
+          </div>
+        </div>
+
       </div>
 
+
+      <SpinningThing class="spinning-thing" v-else />
     </div>
-
-
-    <SpinningThing class="spinning-thing" v-else />
   </div>
 </template>
 
@@ -79,17 +89,21 @@ import SyllableDisplay from "./SyllableDisplay.vue";
 import WordResult from "./WordResult.vue";
 import SynonymDisplay from "./SynonymDisplay.vue"
 import AddOrTrashWordButton from "./AddOrTrashWordButton.vue"
-import { setToSavedWords, deleteSavedWord, checkForSavedWord, setToWordHistory } from "../utils/utils.js"
+import TraversalMenu from "./TraversalMenu.vue";
+
+import { setToSavedWords, deleteSavedWord, checkForSavedWord, setToWordHistory, setToCurrentWordLocation } from "../utils/utils.js"
 
 export default {
-  props: ["wordData"],
   components: {
     SpinningThing,
     SyllableDisplay,
     SynonymDisplay,
     WordResult,
-    AddOrTrashWordButton
+    AddOrTrashWordButton,
+    TraversalMenu
   },
+  props: ["wordData"],
+  emits: ["makeTraversal", "reloadViaLink"],
   computed: {
     synonyms() {
       return this.getFromDataset(this.wordData, "results", "synonyms")
@@ -101,10 +115,13 @@ export default {
   // using code from https://vuejs.org/guide/essentials/watchers
   watch: {
     wordData(wd) {
-      if (wd) {
-        // check if word is result of traversing
+      if (wd && typeof wd !== 'string') {
 
-        setToWordHistory(wd.word)
+        // check if word is not the result of traversing!
+        if (!wd.lexileafTraversal) {
+          setToCurrentWordLocation(0)
+          setToWordHistory(wd.word)
+        }
 
         if (checkForSavedWord(wd.word)) {
           this.wordAlreadySaved = true
@@ -120,6 +137,12 @@ export default {
     }
   },
   methods: {
+    sendTraversal(word) {
+      this.$emit("makeTraversal", word)
+    },
+    sendReloadViaLink(word) {
+      this.$emit('reloadViaLink', word)
+    },
     addOrTrash(isTrash) {
       if (!isTrash) {
         // trash it
@@ -183,8 +206,18 @@ export default {
 </script>
 
 <style scoped>
+.word-trav-container {
+  position: relative;
+}
+
+.traversal-menu {
+  position: absolute;
+  top: -34px;
+}
+
 .word-definition-full {
   position: relative;
+  margin-top: 60px;
 }
 
 .spinning-thing {
@@ -228,7 +261,6 @@ p {
   border-style: solid;
   border-radius: 15px;
   padding: 15px;
-  margin-top: 59px;
 }
 
 .add-word-button {
