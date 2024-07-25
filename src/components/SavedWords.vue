@@ -138,8 +138,6 @@ export default {
 </script>
 
 <style scoped>
-.saved-words-container {}
-
 .sorting-menu-holder {
   display: flex;
   justify-content: center;
