@@ -171,6 +171,7 @@ export default {
   color: var(--gray1);
 }
 
+/* using code from https://www.w3schools.com/css/css3_mediaqueries.asp */
 @media (min-width: 426px) {
   .tm-container {
     width: 100%;

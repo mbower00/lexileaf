@@ -2,7 +2,7 @@
   <div>
     <!-- using code from https://www.w3schools.com/vue/vue_v-if.php -->
 
-    <PartOfSpeech v-if="resultData.partOfSpeech" :partOfSpeech="resultData.partOfSpeech" />
+    <PartOfSpeech v-if="resultData.partOfSpeech" :partOfSpeech="resultData.partOfSpeech" :noColor="gray" />
     <div class="spacer" v-if="resultData.definition && resultData.partOfSpeech"></div>
     <div v-if="resultData.definition" class="definition">
       {{ resultData.definition }}
@@ -21,6 +21,10 @@ export default {
     resultData: {
       required: true,
     },
+    gray: {
+      required: false,
+      default: false
+    }
     // onlyPartAndDef: {
     //   required: false,
     //   default: false
