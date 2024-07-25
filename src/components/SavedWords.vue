@@ -69,7 +69,6 @@ export default {
       }
     },
     howToSort(hts) {
-      console.log('sdfsd')
       const by = hts.by
       const down = hts.down
       if (by === "added") {         // IF ADDED

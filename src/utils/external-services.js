@@ -18,7 +18,7 @@ export async function getWord(word, traversal = false) {
     if (result.message === "word not found") {
       return word
     }
-    console.log(result)
+    // console.log(result)
 
     if( traversal) {
       return {...result, lexileafTraversal: traversal}
@@ -27,7 +27,7 @@ export async function getWord(word, traversal = false) {
     }
     
   } catch (error) {
-    console.log('here')
+    // console.log('here')
     console.error(error);
   }
 }
@@ -45,7 +45,7 @@ export async function getRandomWord() {
   try {
     const response = await fetch(url, options);
     const result = await response.json();
-    console.log(result)
+    // console.log(result)
     return result
   } catch (error) {
     console.error(error);
