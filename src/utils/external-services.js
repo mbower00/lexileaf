@@ -1,7 +1,7 @@
 // I used code from multiple sources to get the environment variable stuff working, but
 // here is a source:
 // https://www.digitalocean.com/community/tutorials/vuejs-working-with-environment-variables
-// (NOTE: the above comments apply to my .env)
+// (NOTE: the above comments apply to my .env and netlify site configuration)
 const API_KEY = process.env.VUE_APP_API_KEY
 
 
