@@ -2,7 +2,7 @@
 // here is a source:
 // https://www.digitalocean.com/community/tutorials/vuejs-working-with-environment-variables
 // (NOTE: the above comments apply to my .env and netlify site configuration)
-const API_KEY = process.env.VUE_APP_API_KEY
+function getKey() {return process.env.VUE_APP_API_KEY}
 
 
 export async function getWord(word, traversal = false) {
@@ -11,7 +11,7 @@ export async function getWord(word, traversal = false) {
   const options = {
     method: 'GET',
     headers: {
-      'x-rapidapi-key': API_KEY,
+      'x-rapidapi-key': getKey(),
       'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com'
     }
   };
@@ -41,7 +41,7 @@ export async function getRandomWord() {
   const options = {
     method: 'GET',
     headers: {
-      'x-rapidapi-key': API_KEY,
+      'x-rapidapi-key': getKey(),
       'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com'
     }
   };
@@ -62,7 +62,7 @@ export async function getSynonyms(word) {
   const options = {
     method: 'GET',
     headers: {
-      'x-rapidapi-key': API_KEY,
+      'x-rapidapi-key': getKey(),
       'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com'
     }
   };
