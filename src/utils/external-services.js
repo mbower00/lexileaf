@@ -1,8 +1,11 @@
-
+// I used code from multiple sources to get the environment variable stuff working, but
+// here is a source:
+// https://www.digitalocean.com/community/tutorials/vuejs-working-with-environment-variables
+// (NOTE: the above comments apply to my .env)
+const API_KEY = process.env.VUE_APP_API_KEY
 
 
 export async function getWord(word, traversal = false) {
-  console.log("getWord", process.env.API_KEY)
   // using code copied from https://rapidapi.com/dpventures/api/wordsapi/playground/54b6af68e4b02f9493f90b22
   const url = `https://wordsapiv1.p.rapidapi.com/words/${word}`;
   const options = {
