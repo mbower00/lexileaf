@@ -1,7 +1,8 @@
-const API_KEY = '806fde0acamshdd358ff2292743fp1e0977jsn6a1793dc55a4'
+
 
 
 export async function getWord(word, traversal = false) {
+  console.log("getWord", process.env.API_KEY)
   // using code copied from https://rapidapi.com/dpventures/api/wordsapi/playground/54b6af68e4b02f9493f90b22
   const url = `https://wordsapiv1.p.rapidapi.com/words/${word}`;
   const options = {
